@@ -17,9 +17,9 @@ if (!strcmp(name, "FLAG")) {
 ```
 
 ## The (dumb) solution
-So, the first path that I went down after realizing that overflows format string exploits, and freelist shenanigans were out of the question was investigating how environment variables were processed, how our string comparison is processed, and what edege cases we could find.
+So, the first path that I went down after realizing that any kind of memory error (overflows, format string exploits, and freelist shenanigans) was out of the question, was investigating how environment variables were processed, how our string comparison is processed, and what edge cases we could find.
 
-First, let's take a look at *exactly* what our string comparison function is doing given the several similar functions in C. The `strcmp` function compares two strings up until the null terminator is encountered. This means that unlike `strstr`, another commonly used function for this purpose, we can add something onto the end and get the comparison to return false.
+First, let's take a look at *exactly* what our string comparison function is doing, given the several similar functions in C. The `strcmp` function compares two strings up until the null terminator is encountered. This means that unlike `strstr`, another commonly used function for this purpose, we can add something onto the end and get the comparison to return false.
 For example:
 
 ```c
@@ -75,8 +75,7 @@ char * __findenv(const char *name)
 }
 ```
 
-Now, this is where it gets a little bit fucky. I didn't look at the libc source code when I solved the challenge, but if we look at it closely, we can see that it only compares 
-If we look at the function it only compares our environment variable's name up to the `=` character. So, if we had just done `print FLAG=`, we would have passed the string comparison check and been able to retrieve the right environment variable without ever having to use the rot13 command. 
+If we look at the function, it only compares our environment variable's name up to the `=` character. So, if we had just done `print FLAG=`, we would have passed the string comparison check and been able to retrieve the right environment variable without ever having to use the rot13 command. 
 
 ## It feels weird to just cut it off right here so here's a couple more sentences
 So, if there's a good thing to remember from this challenge aside from cool libc internals, it's that reading libc source code is much more useful and much less scary than I (and maybe you) thought.
