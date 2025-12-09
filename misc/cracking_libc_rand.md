@@ -16,7 +16,7 @@ The basic implementation of the `rand()` function works, basically, like this:
 
 Or, in flowchart form: 
 
-![Hello World](rand.png)
+![Hello World](../img/rand.png)
 
 ### The code
 In `stdlib.h`, we have the struct used to keep track of all the stuff outlined above. The `rand_type` field also determines the configuration stuff I alluded to at the beginning of this section. An instance of it, called `unsafe_state`, is stored in libc's bss, and is referenced whenever `rand()` is called. 
@@ -99,7 +99,7 @@ clobber(randtbl+24) # WRITE 2
 proc.interactive() # Select the last menu option by hand, for that sweet feeling of victory
 ``` 
 I also threw together a quick little diagram to have something more visual, and you can see how the moving indices eventually both land on 0, forcing rand to return `NULL`.  
-![helloWorld](exploit.png)
+![helloWorld](../img/rand_exploit.png)
 
 
 #### Other use cases/possibilities: 
