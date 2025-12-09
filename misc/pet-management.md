@@ -115,5 +115,5 @@ def arbRead(addr, size):
 	return proc.recvuntil(b"====")[:-5][-7:]
 ```
 With that, I get a stack leak and a leak of the `.bss`. I tried getting an arbitrary write with the stdin file struct, but that caused some rage-inducing IO problems on the remote instance, so I rewrote my exploit to corrupt the list of allocations stored in the `.bss`. From there it's pretty boring, just gadget offsets and putting the ROPchain onto the stack. 
-<b><b><b>
-remember kids, largebins are a government psyop.
+<br><br><br>
+Full script should be in this folder i think
