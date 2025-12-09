@@ -102,11 +102,12 @@ I also threw together a quick little diagram to have something more visual, and 
 ![helloWorld](exploit.png)
 
 
-<b>Other use cases/possibilities</b>
- Lack of restriction/checks on `state` and `end_ptr` pointers: While it's by no means a high-value target like heap metadata or file structs, the code responsible for resetting fptr and rptr at the end of the table could allow for a pretty cool way to leak, modify, or otherwise mess with pointers both in and outside of libc's bss. 
-
-<b> Leakless shenanigans </b>
-
+#### Other use cases/possibilities: 
+The lack of restriction/checks on `state` and `end_ptr` pointers: While it's by no means a high-value target like heap metadata or file structs, the code responsible for resetting fptr and rptr at the end of the table could allow for a pretty cool -if limited- way to leak, modify, or otherwise mess with pointers both in and outside of libc's bss. 
+<br>
+<br>
+<br>
+#### <b> Leakless shenanigans </b>
 One more possibility I noticed lies in the modification of whatever `fptr` points towards. Particularly, since it's an addition operation, it could be used to do things like altering a saved return pointer using only an offset, without requiring a leak. It's not a particularly useful technique, it's rare that you would have the primitives & leaks to do this but not something easier or simpler, but I thought it was cool.   
 
 Consider a program with a `main()` function and a `win()` function. Assuming that you can write within libc and have a stack leak, control flow can be redirected like this:
