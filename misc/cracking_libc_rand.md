@@ -1,7 +1,7 @@
 
 # Understanding (and exploiting) the rand() function in libc
 
-This weekend, I played BackdoorCTF with my team L3ak. There was one challenge I found really interesting; you get some leaks, you're allowed to zero out a few values at an arbitrary place in memory, and you need libc's `rand()` function to return an abnoramlly small value to trigger a `win()` function.
+This weekend, I played BackdoorCTF with my team L3ak. There was one challenge I found really interesting; you get some leaks, you're allowed to zero out a few values at an arbitrary place in memory, and you need libc's `rand()` function to return an abnoramlly small value to trigger a `win()` function. So, after I spent a few hours looking into exactly how libc generates random numbers, I finally solved the challenge. So, i was thinking... My github has been looking a little barren lately and the granular, inner workings of libc are always super interesting, and this is a neat little topic that it looks like nobody else has really covered in this much detail... So here we are!
 
 ## Part I: `rand()`, `unsafe_data`, and `randtbl`
 
